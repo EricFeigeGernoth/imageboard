@@ -18,7 +18,7 @@
 
         <h2>Images:</h2>
         <ul>
-            <li v-for='image in images' :key='image.id' @click="myFunction(city.name)"> {{image.title}},<img src="{{image.url}}" alt="picture">,{{image.description}}</li>
+            <li v-for='image in images' :key='image.id' @click="myFunction(city.name)"> {{image.title}},<img :src=image.url alt="picture">,{{image.description}}</li>
 
         </ul>
     </div>
