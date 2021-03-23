@@ -11,7 +11,7 @@
             var self = this;
             axios
                 .get("/images")
-                .then(function (response) {
+                .then(function (resp) {
                     console.log("resp from /images: ", resp);
                     self.images = resp.data;
                 })

@@ -14,13 +14,13 @@
         <h2>10*3={{10*3}}</h2>
         <h2>Name capitalized: {{name.toUpperCase()}}</h2>
         <h3 v-if="seen">Yay you can see me!!!!</h3>
-        <h3 v-else="seen">Haha wrong</h3>
+        <h3 v-else="seen">Haha wrong</h3> -->
 
-        <h2>Cities:</h2>
+        <h2>Images:</h2>
         <ul>
-            <li v-for='city in cities' :key='city.id' @click="myFunction(city.name)"> {{city.name}},{{city.country}}</li>
+            <li v-for='image in images' :key='image.id' @click="myFunction(city.name)"> {{image.title}},<img src="{{image.url}}" alt="picture">,{{image.description}}</li>
 
-        </ul> -->
+        </ul>
     </div>
 <!-- :key shortcut for v-bind:key -->
     <script src="/js/vue.js"></script>

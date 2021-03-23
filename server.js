@@ -10,7 +10,7 @@ app.get("/images", (req, res) => {
     console.log("images has been hit");
     getImages().then((data) => {
         console.log("successful data query: ", data);
-        res.json(data);
+        res.json(data.rows);
     });
 });
 
