@@ -14,5 +14,5 @@ const db = spicedPg(
 //     });
 
 module.exports.getImages = function () {
-    return db.query(`SELECT url, title, description FROM users ;`);
+    return db.query(`SELECT url, title, description FROM images ;`);
 };
