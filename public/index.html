@@ -2,9 +2,29 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    <h1>Happy Vue Day!!!</h1>
+
+    <!-- this container is for our Vue instance -->
+    <div id="main">
+        <h2>Hi {{name}}! Vue is so awesome!</h2>
+        <!-- <h2>Hi {{name}}! Vue is so awesome!</h2>
+        <h2>10*3={{10*3}}</h2>
+        <h2>Name capitalized: {{name.toUpperCase()}}</h2>
+        <h3 v-if="seen">Yay you can see me!!!!</h3>
+        <h3 v-else="seen">Haha wrong</h3>
+
+        <h2>Cities:</h2>
+        <ul>
+            <li v-for='city in cities' :key='city.id' @click="myFunction(city.name)"> {{city.name}},{{city.country}}</li>
+
+        </ul> -->
+    </div>
+<!-- :key shortcut for v-bind:key -->
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
