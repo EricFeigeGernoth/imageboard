@@ -1,6 +1,7 @@
 const { json } = require("express");
 const express = require("express");
 const app = express();
+const s3 = require("./s3.js");
 
 const { getImages } = require("./db.js");
 
@@ -10,6 +11,7 @@ app.use(express.static("./public"));
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
+const { DataBrew } = require("aws-sdk");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -30,12 +32,22 @@ const uploader = multer({
         fileSize: 2097152,
     },
 });
-
+// s3.upload,
 app.post("/upload", uploader.single("file"), (req, res) => {
     console.log("Working");
     console.log("req.body: ", req.body);
     console.log("req.file: ", req.file);
     if (req.file) {
+        db.addImage(
+            req.body.title,
+            req.body.desc,
+            req.body.username,
+            s3Url + req.file.filename).then(( {rows})=>{
+                res.json( {
+                    image:rows[0]
+                })
+            })
+        )
         // this runs if everything worked!
         res.json({
             success: true,
