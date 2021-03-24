@@ -2,8 +2,9 @@ const { json } = require("express");
 const express = require("express");
 const app = express();
 const s3 = require("./s3.js");
+const { s3Url } = require("./s3urlconfig.json");
 
-const { getImages } = require("./db.js");
+const { getImages, addImage } = require("./db.js");
 
 //middleware
 app.use(express.static("./public"));
@@ -12,6 +13,7 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const { DataBrew } = require("aws-sdk");
+const { title } = require("process");
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -32,26 +34,28 @@ const uploader = multer({
         fileSize: 2097152,
     },
 });
-// s3.upload,
-app.post("/upload", uploader.single("file"), (req, res) => {
+//
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("Working");
     console.log("req.body: ", req.body);
     console.log("req.file: ", req.file);
     if (req.file) {
-        db.addImage(
+        console.log("I am in the if statement");
+        addImage(
             req.body.title,
-            req.body.desc,
+            req.body.description,
             req.body.username,
-            s3Url + req.file.filename).then(( {rows})=>{
-                res.json( {
-                    image:rows[0]
-                })
-            })
+            s3Url + req.file.filename
         )
-        // this runs if everything worked!
-        res.json({
-            success: true,
-        });
+            .then((data) => {
+                console.log("I am in dataaaaaaaaaa");
+                console.log(data);
+                console.log("data.rows[0]    ", data.rows[0]);
+                res.json(data.rows[0]);
+            })
+            .catch((err) => {
+                console.log("error at catching filename: ", err);
+            });
     } else {
         // this runs if something goes wrong along the way :(
         res.json({

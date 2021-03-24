@@ -48,6 +48,8 @@
                     .post("/upload", formData)
                     .then((resp) => {
                         console.log("resp from POST /upload: ", resp);
+                        self.images.unshift(resp.data);
+                        console.log("I am again in script.js");
                     })
                     .catch((err) => {
                         console.log("err in POST /upload: ", err);
