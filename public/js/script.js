@@ -46,9 +46,10 @@
                 console.log("formData: ", formData);
                 axios
                     .post("/upload", formData)
-                    .then((resp) => {
-                        console.log("resp from POST /upload: ", resp);
-                        self.images.unshift(resp.data);
+                    .then((response) => {
+                        console.log("resp from POST /upload: ", response);
+                        console.log(response.data);
+                        self.images.unshift(response.data);
                         console.log("I am again in script.js");
                     })
                     .catch((err) => {
@@ -61,32 +62,6 @@
                 console.log("e.target: ", e.target.files);
                 this.file = e.target.files[0];
             },
-
-            // myFunction: function (arg) {
-            //     console.log(
-            //         "myFn is running & the argument passed to it is: ",
-            //         arg
-            //     );
-            // },
         },
     });
 })();
-
-//     cities: [
-//         {
-//             id: 1,
-//             name: "Berlin",
-//             country: "DE",
-//         },
-//         {
-//             id: 2,
-//             name: "Madrid",
-//             country: "Spain",
-//         },
-//         {
-//             id: 3,
-//             name: "Sendai",
-//             country: "Japan",
-//         },
-//     ],
-// },
