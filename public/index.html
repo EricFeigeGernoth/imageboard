@@ -10,24 +10,34 @@
     <!-- this container is for our Vue instance -->
     <div id="main">
         <div class="title"><h2>Hi {{name}}! This is your imageboard!</h2></div>
-      <h1>{{title}}</h1>  
-       <h1>{{description}}</h1>  
-        <h1>{{username}}</h1>  
         <form>
             <input v-model="title" type="text" name="title" placeholder="title">
             <input v-model="description" type="text" name="description" placeholder="description">
             <input v-model="username" type="text" name="username" placeholder="username">
-           <input @change='handleChange' type='file' name='file' accept='image/*'>
+            <input @change='handleChange' type='file' name='file' accept='image/*'>
             <button @click.prevent="handleClick">submit</button>
         </form>
-
+        
         <h2>Images:</h2>
-        <ul class="imageList">
-            <li class="imageContainer" v-for='image in images' :key='image.id' @click="myFunction(city.name)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
+        <div class="originImageBoard"><div class="imageboard"> <ul class="imageList">
+            <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
+            
+        </ul></div>
+        <my-component>
+            :id="selectedImage"
 
-        </ul>
-    </div>
+        </my-component>
+    </div></div>
+        
 <!-- :key shortcut for v-bind:key -->
+
+<script id="template" type="text/x-template">
+<div class="component">
+    <h1>this is my first template Hello {{name}}</h1>
+</div>
+
+</script>
+
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>

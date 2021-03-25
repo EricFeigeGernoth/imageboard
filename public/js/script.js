@@ -1,13 +1,26 @@
 (function () {
+    Vue.component("my-component", {
+        template: "#template",
+        props: ["id"],
+        data: function () {
+            return {
+                name: "Layla",
+            };
+        },
+        methods: {},
+    });
+
     new Vue({
         el: "#main",
         data: {
             name: "Eric",
             images: [],
+            id: null,
             title: "",
             description: "",
             username: "",
             file: null,
+            selectedImage: "",
             // this is the perfect location for us to ask if there are any images to retrieve any images from our database
         },
         mounted: function () {
@@ -47,10 +60,12 @@
                 axios
                     .post("/upload", formData)
                     .then((response) => {
-                        console.log("resp from POST /upload: ", response);
-                        console.log(response.data);
-                        self.images.unshift(response.data);
+                        console.log("11111resp from POST /upload: ", response);
+                        console.log("this: ", this.images);
+                        console.log("data", response.data);
+                        this.images.unshift(response.data);
                         console.log("I am again in script.js");
+                        console.log("this: ", this.images);
                     })
                     .catch((err) => {
                         console.log("err in POST /upload: ", err);
@@ -61,6 +76,10 @@
                 console.log("handleChange is running");
                 console.log("e.target: ", e.target.files);
                 this.file = e.target.files[0];
+            },
+            getId: function (e) {
+                console.log("I clicked somehwere");
+                console.log("e.target: ", e.target);
             },
         },
     });
