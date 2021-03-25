@@ -4,7 +4,7 @@ const app = express();
 const s3 = require("./s3.js");
 const { s3Url } = require("./s3urlconfig.json");
 
-const { getImages, addImage } = require("./db.js");
+const { getImages, addImage, getSingleImage } = require("./db.js");
 
 //middleware
 app.use(express.static("./public"));
@@ -68,6 +68,15 @@ app.get("/images", (req, res) => {
     console.log("images has been hit");
     getImages().then((data) => {
         console.log("successful data query: ", data);
+        res.json(data.rows);
+    });
+});
+
+app.get("/selectedImage/:id", (req, res) => {
+    console.log(req.params.id);
+    console.log("selectedImages has been hit");
+    getSingleImage().then((data) => {
+        // console.log("successful singleImages data query: ", data);
         res.json(data.rows);
     });
 });

@@ -4,9 +4,23 @@
         props: ["id"],
         data: function () {
             return {
-                name: "Layla",
+                title: "",
+                description: "",
+                url: "",
             };
         },
+        mounted: function (id) {
+            console.log("id", this.id);
+
+            axios
+                .get("/selectedImage" + this.id)
+                .then(function (resp) {
+                    console.log("resp from /greatImages: ", resp);
+                    // self.images = resp.data;
+                })
+                .catch((err) => console.log("err", err));
+        },
+
         methods: {},
     });
 
@@ -77,9 +91,17 @@
                 console.log("e.target: ", e.target.files);
                 this.file = e.target.files[0];
             },
-            getId: function (e) {
+            getId: function (imageID) {
                 console.log("I clicked somehwere");
-                console.log("e.target: ", e.target);
+                console.log("e.target: ", imageID);
+                this.selectedImage = imageID;
+                // axios
+                //     .get("/selectedImage")
+                //     .then(function (resp) {
+                //         console.log("resp from /images: ", resp);
+                //         self.images = resp.data;
+                //     })
+                //     .catch((err) => console.log("err", err));
             },
         },
     });

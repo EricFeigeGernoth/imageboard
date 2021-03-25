@@ -9,7 +9,7 @@
     
     <!-- this container is for our Vue instance -->
     <div id="main">
-        <div class="title"><h2>Hi {{name}}! This is your imageboard!</h2></div>
+        <div class="title"><h2>Hi! This is your imageboard!</h2></div>
         <form>
             <input v-model="title" type="text" name="title" placeholder="title">
             <input v-model="description" type="text" name="description" placeholder="description">
@@ -20,12 +20,12 @@
         
         <h2>Images:</h2>
         <div class="originImageBoard"><div class="imageboard"> <ul class="imageList">
-            <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
+            <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
             
         </ul></div>
-        <my-component>
-            :id="selectedImage"
-
+        <my-component v-if="selectedImage" :id="selectedImage">
+            
+            
         </my-component>
     </div></div>
         
@@ -33,7 +33,7 @@
 
 <script id="template" type="text/x-template">
 <div class="component">
-    <h1>this is my first template Hello {{name}}</h1>
+    <h1>this is my first template Hello</h1>
 </div>
 
 </script>
