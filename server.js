@@ -72,10 +72,12 @@ app.get("/images", (req, res) => {
     });
 });
 
-app.get("/selectedImage/:id", (req, res) => {
-    console.log(req.params.id);
+app.get("/singleimage/:id", (req, res) => {
+    console.log("req.params", req.params);
+    console.log("req.params.id", req.params.id);
+    let id = req.params.id;
     console.log("selectedImages has been hit");
-    getSingleImage().then((data) => {
+    getSingleImage(id).then((data) => {
         // console.log("successful singleImages data query: ", data);
         res.json(data.rows);
     });

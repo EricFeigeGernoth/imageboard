@@ -26,7 +26,7 @@ module.exports.addImage = function (title, description, username, url) {
 
 module.exports.getSingleImage = function (imageID) {
     return db.query(
-        `SELECT url, title, description FROM images WHERE id=$1 ;`,
+        `SELECT url, title, description, username FROM images WHERE id=$1 ;`,
         [imageID]
     );
 };

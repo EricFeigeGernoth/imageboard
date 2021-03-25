@@ -4,19 +4,26 @@
         props: ["id"],
         data: function () {
             return {
-                title: "",
-                description: "",
-                url: "",
+                title: this.title,
+                description: this.description,
+                url: this.url,
+                username: this.username,
             };
         },
         mounted: function (id) {
             console.log("id", this.id);
 
             axios
-                .get("/selectedImage" + this.id)
+                .get("/singleimage/" + this.id)
                 .then(function (resp) {
                     console.log("resp from /greatImages: ", resp);
+                    this.title = resp.data[0].title;
+                    this.description = resp.data[0].description;
+                    this.url = resp.data[0].url;
+                    this.username = resp.data[0].username;
                     // self.images = resp.data;
+                    console.log(this.title);
+                    console.log(this.description);
                 })
                 .catch((err) => console.log("err", err));
         },
