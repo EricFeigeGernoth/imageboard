@@ -23,7 +23,7 @@
             <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
             
         </ul></div>
-        <my-component v-if="selectedImage" :id="selectedImage">
+        <my-component @close="closeMePlease" v-if="selectedImage" :id="selectedImage">
             
             
         </my-component>
@@ -33,9 +33,10 @@
 
 <script id="template" type="text/x-template">
 <div class="component">
-    <h1>{{title}} this is my first template Hello</h1>
+    
     <div class="greyScreen">
         <div class="selectedCard">
+            <h2 @click='closeModal'>X</h2>
             <p>{{title}}</p>
             <img class="image" :src=url alt="picture">
             <p>{{description}}</p>

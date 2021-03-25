@@ -15,8 +15,9 @@
 
             axios
                 .get("/singleimage/" + this.id)
-                .then(function (resp) {
+                .then((resp) => {
                     console.log("resp from /greatImages: ", resp);
+                    console.log("resp.data", resp.data[0]);
                     this.title = resp.data[0].title;
                     this.description = resp.data[0].description;
                     this.url = resp.data[0].url;
@@ -24,11 +25,18 @@
                     // self.images = resp.data;
                     console.log(this.title);
                     console.log(this.description);
+                    console.log(this);
                 })
                 .catch((err) => console.log("err", err));
         },
 
-        methods: {},
+        methods: {
+            closeModal: function () {
+                console.log("closeModal is running!");
+                // console.log("about to emit an event from the component!!");
+                this.$emit("close");
+            },
+        },
     });
 
     new Vue({
@@ -109,6 +117,15 @@
                 //         self.images = resp.data;
                 //     })
                 //     .catch((err) => console.log("err", err));
+            },
+            closeMePlease: function () {
+                console.log(
+                    "closeMePlease in the parent is running! The child caused this to happen!!!"
+                );
+
+                console.log(this);
+                this.selectedImage = null;
+                // this is where you want to update data to close the modal by setting id to null
             },
         },
     });
