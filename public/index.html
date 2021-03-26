@@ -23,10 +23,10 @@
             <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
             
         </ul></div>
-        <my-component @close="closeMePlease" v-if="selectedImage" :id="selectedImage">
+        <modal @close="closeMePlease" v-if="selectedImage" :id="selectedImage">
             
             
-        </my-component>
+        </modal>
     </div></div>
         
 <!-- :key shortcut for v-bind:key -->
@@ -40,12 +40,18 @@
             <p>{{title}}</p>
             <img class="image" :src=url alt="picture">
             <p>{{description}}</p>
+            <comment @click="clickCommentBox" :imageID="singleID"></comment>
         </div>
          
 
 
     </div>
 </div>
+
+</script>
+<script id="commentsection" type="text/x-template">
+
+    <h2>{{name}}We are here</h2>
 
 </script>
 

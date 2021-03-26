@@ -14,7 +14,9 @@ const db = spicedPg(
 //     });
 
 module.exports.getImages = function () {
-    return db.query(`SELECT id, url, title, description FROM images ;`);
+    return db.query(
+        `SELECT id, url, title, description FROM images ORDER BY id DESC LIMIT 10;`
+    );
 };
 
 module.exports.addImage = function (title, description, username, url) {
@@ -26,7 +28,7 @@ module.exports.addImage = function (title, description, username, url) {
 
 module.exports.getSingleImage = function (imageID) {
     return db.query(
-        `SELECT url, title, description, username FROM images WHERE id=$1 ;`,
+        `SELECT url, title, description, username, id FROM images WHERE id=$1 ;`,
         [imageID]
     );
 };

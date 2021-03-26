@@ -1,5 +1,21 @@
 (function () {
-    Vue.component("my-component", {
+    Vue.component("comment", {
+        template: "#commentsection",
+        props: ["imageID"],
+        data: function () {
+            return {
+                name: "Eric",
+            };
+        },
+        mounted: function (imageID) {},
+        methods: {
+            clickCommentbox: function (imageID) {
+                return console.log("inside Clickbox", imageID);
+            },
+        },
+    });
+
+    Vue.component("modal", {
         template: "#template",
         props: ["id"],
         data: function () {
@@ -8,10 +24,11 @@
                 description: this.description,
                 url: this.url,
                 username: this.username,
+                singleID: this.singleID,
             };
         },
         mounted: function (id) {
-            console.log("id", this.id);
+            console.log("here this id", this.id);
 
             axios
                 .get("/singleimage/" + this.id)
@@ -22,7 +39,9 @@
                     this.description = resp.data[0].description;
                     this.url = resp.data[0].url;
                     this.username = resp.data[0].username;
+                    this.singleID = resp.data[0].id;
                     // self.images = resp.data;
+                    console.log("single id", this.singleID);
                     console.log(this.title);
                     console.log(this.description);
                     console.log(this);
