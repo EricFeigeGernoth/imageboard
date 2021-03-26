@@ -11,7 +11,7 @@
         },
         mounted: function () {
             console.log("is this really the imageID", this.imageID);
-            axios.get("/comment/" + imageID).then((resp) => {
+            axios.get("/comment/" + this.imageID).then((resp) => {
                 console.log("Get comment function worked yeah");
                 console.log("resp", resp);
             });

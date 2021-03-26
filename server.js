@@ -94,17 +94,33 @@ app.get("/singleimage/:id", (req, res) => {
         res.json(data.rows);
     });
 });
-
 app.get("/comment/:imageID", (req, res) => {
-    console.log("req.params", req.params);
-    let id = req.params;
-    console.log("id in the comment function", id);
-    getComment(id).then((data) => {
-        console.log("after get ID");
-        console.log("data.rows", data.rows);
-        res.json(data.rows);
-    });
+    console.log("I am in the get comments");
+    let id = req.params.imageID;
+    console.log("id get function", id);
+    getComment(id)
+        .then((data) => {
+            console.log("rows at getComment", data.rows);
+            res.json(data.rows);
+        })
+        .catch((err) => {
+            console.log("error", err);
+        });
 });
+// app.get("/comment/:imageID", (req, res) => {
+//     console.log("req.params", req.params);
+//     let id = req.params.imageID;
+//     console.log("id in the comment function", id);
+//     getComment(id)
+//         .then((data) => {
+//             console.log("after get ID");
+//             console.log("data.rows", data.rows);
+//             res.json(data.rows);
+//         })
+//         .catch((err) => {
+//             console.log("error", err);
+//         });
+// });
 
 app.post("/comment/:imageId", (req, res) => {
     console.log("req.params", req.params);
