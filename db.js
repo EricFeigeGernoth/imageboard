@@ -35,7 +35,11 @@ module.exports.getSingleImage = function (imageID) {
 
 module.exports.addComment = function (comment, username, id) {
     return db.query(
-        `INSERT INTO comment (username, comment, images_id) VALUES ($1, $2, $3) RETURNING comment , username, images_id`,
-        [comment, username, id]
+        `INSERT INTO comment (username, comment, images_id) VALUES ($1, $2, $3) RETURNING comment , username, images_id, id`,
+        [username, comment, id]
     );
+};
+
+module.exports.getComment = function (imageID) {
+    return db.query(`SELECT * FROM comment WHERE images_id=$1 `), [imageID];
 };

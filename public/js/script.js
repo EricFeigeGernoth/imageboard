@@ -9,17 +9,40 @@
                 comment: "",
             };
         },
-        mounted: function (imageID) {},
+        mounted: function () {
+            console.log("is this really the imageID", this.imageID);
+            axios.get("/comment/" + imageID).then((resp) => {
+                console.log("Get comment function worked yeah");
+                console.log("resp", resp);
+            });
+        },
         methods: {
             clickCommentBox: function (imageID) {
                 return console.log("inside Clickbox", imageID);
             },
             submit: function (imageID) {
+                console.log(this);
+                console.log(this.comment);
+                console.log(this.username);
+
+                let comment = {
+                    comment: this.comment,
+                    username: this.username,
+                    imageID: imageID,
+                };
+                console.log(comment);
                 console.log("inside Clickbox", imageID);
                 axios
-                    .post("/comment")
+                    .post("/comment/" + imageID, comment)
                     .then((response) => {
                         console.log("11111resp from POST /comment: ", response);
+                        console.log("this", this);
+                        console.log("response.data[0]", response.data[0]);
+                        this.username = response.data[0].username;
+                        this.comment = response.data[0].comment;
+                        this.comments.unshift(response.data[0]);
+                        console.log("this.comments", this.comments);
+                        console.log("this.username", this.username);
                     })
                     .catch((err) => {
                         console.log("err in POST /comment: ", err);

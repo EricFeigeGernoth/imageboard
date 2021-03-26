@@ -55,11 +55,19 @@
 
 
     <div class="writeComment">
-        <form method="POST"> 
-        <div class="commenting"><input type="text" name="comment" placeholder="comment"> 
-        <input type="text" name="username" placeholder="username">
-        <button type="button" @click="submit(imageID)"> submit comment </button></div>
-    </form>
+        
+        <div class="commenting"><input v-model="comment" type="text" name="comment" placeholder="comment"> 
+        <input v-model="username" type="text" name="username" placeholder="username">
+        <button type="button" @click="submit(imageID)"> submit comment </button>
+    
+     <div class="commentSection"> <ul class="commentList">
+            <li class="commentContainer" v-for='comment in comments' :key='comment.id' > {{comment.username}},{{comment.comment}}</li>
+            
+        </ul></div>
+    
+    
+    </div>
+   
        
     </div>
 

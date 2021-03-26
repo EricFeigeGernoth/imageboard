@@ -4,9 +4,16 @@ const app = express();
 const s3 = require("./s3.js");
 const { s3Url } = require("./s3urlconfig.json");
 
-const { getImages, addImage, getSingleImage, addComment } = require("./db.js");
+const {
+    getImages,
+    addImage,
+    getSingleImage,
+    addComment,
+    getComment,
+} = require("./db.js");
 
 //middleware
+app.use(express.json());
 app.use(
     express.urlencoded({
         extended: false,
@@ -88,9 +95,26 @@ app.get("/singleimage/:id", (req, res) => {
     });
 });
 
-app.post("/comment", (req, res) => {
+app.get("/comment/:imageID", (req, res) => {
+    console.log("req.params", req.params);
+    let id = req.params;
+    console.log("id in the comment function", id);
+    getComment(id).then((data) => {
+        console.log("after get ID");
+        console.log("data.rows", data.rows);
+        res.json(data.rows);
+    });
+});
+
+app.post("/comment/:imageId", (req, res) => {
+    console.log("req.params", req.params);
+    console.log(req);
     console.log("comment req.body", req.body);
-    addComment().then((data) => {
+    let comment = req.body.comment;
+    let username = req.body.username;
+    let imageID = req.body.imageID;
+    addComment(username, comment, imageID).then((data) => {
+        console.log(data);
         console.log("After insert");
         res.json(data.rows);
     });
