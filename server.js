@@ -9,7 +9,7 @@ const {
     addImage,
     getSingleImage,
     addComment,
-    getComment,
+    getComments,
 } = require("./db.js");
 
 //middleware
@@ -98,7 +98,7 @@ app.get("/comment/:imageID", (req, res) => {
     console.log("I am in the get comments");
     let id = req.params.imageID;
     console.log("id get function", id);
-    getComment(id)
+    getComments(id)
         .then((data) => {
             console.log("rows at getComment", data.rows);
             res.json(data.rows);

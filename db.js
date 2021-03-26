@@ -40,6 +40,6 @@ module.exports.addComment = function (comment, username, id) {
     );
 };
 
-module.exports.getComment = function (imageID) {
-    return db.query(`SELECT * FROM comment WHERE images_id=$1 `), [imageID];
+module.exports.getComments = function (imageID) {
+    return db.query(`SELECT * FROM comment WHERE images_id=$1 `, [imageID]);
 };

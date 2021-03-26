@@ -14,6 +14,8 @@
             axios.get("/comment/" + this.imageID).then((resp) => {
                 console.log("Get comment function worked yeah");
                 console.log("resp", resp);
+                console.log(resp.data);
+                this.comments = resp.data;
             });
         },
         methods: {
