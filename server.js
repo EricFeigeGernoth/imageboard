@@ -4,9 +4,14 @@ const app = express();
 const s3 = require("./s3.js");
 const { s3Url } = require("./s3urlconfig.json");
 
-const { getImages, addImage, getSingleImage } = require("./db.js");
+const { getImages, addImage, getSingleImage, addComment } = require("./db.js");
 
 //middleware
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
 app.use(express.static("./public"));
 
 const multer = require("multer");
@@ -83,8 +88,12 @@ app.get("/singleimage/:id", (req, res) => {
     });
 });
 
-app.get("/cities", (req, res) => {
-    console.log("/cities has been hit");
+app.post("/comment", (req, res) => {
+    console.log("comment req.body", req.body);
+    addComment().then((data) => {
+        console.log("After insert");
+        res.json(data.rows);
+    });
 });
 
 app.listen(8080, () => console.log("Server listening"));

@@ -4,13 +4,26 @@
         props: ["imageID"],
         data: function () {
             return {
-                name: "Eric",
+                comments: [],
+                username: "",
+                comment: "",
             };
         },
         mounted: function (imageID) {},
         methods: {
-            clickCommentbox: function (imageID) {
+            clickCommentBox: function (imageID) {
                 return console.log("inside Clickbox", imageID);
+            },
+            submit: function (imageID) {
+                console.log("inside Clickbox", imageID);
+                axios
+                    .post("/comment")
+                    .then((response) => {
+                        console.log("11111resp from POST /comment: ", response);
+                    })
+                    .catch((err) => {
+                        console.log("err in POST /comment: ", err);
+                    });
             },
         },
     });

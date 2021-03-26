@@ -40,7 +40,7 @@
             <p>{{title}}</p>
             <img class="image" :src=url alt="picture">
             <p>{{description}}</p>
-            <comment @click="clickCommentBox" :imageID="singleID"></comment>
+            <comment  :imageID="singleID"></comment>
         </div>
          
 
@@ -51,7 +51,17 @@
 </script>
 <script id="commentsection" type="text/x-template">
 
-    <h2>{{name}}We are here</h2>
+    <!-- <h2 @click="clickCommentBox(imageID)">{{name}}We are here</h2> -->
+
+
+    <div class="writeComment">
+        <form method="POST"> 
+        <div class="commenting"><input type="text" name="comment" placeholder="comment"> 
+        <input type="text" name="username" placeholder="username">
+        <button type="button" @click="submit(imageID)"> submit comment </button></div>
+    </form>
+       
+    </div>
 
 </script>
 

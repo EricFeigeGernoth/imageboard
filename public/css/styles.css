@@ -63,10 +63,22 @@ h1 {
 }
 
 .selectedCard {
-    height: 400px;
-    width: 250px;
+    height: 700px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: beige;
+}
+
+.writeComment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.commenting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
