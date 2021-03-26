@@ -21,8 +21,10 @@
         <h2>Images:</h2>
         <div class="originImageBoard"><div class="imageboard"> <ul class="imageList">
             <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
-            
-        </ul></div>
+        </ul>
+        <button @click="moreImages" v-if="more">More</button>
+    </div>
+        
         <modal @close="closeMePlease" v-if="selectedImage" :id="selectedImage">
             
             

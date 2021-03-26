@@ -6,6 +6,7 @@ const { s3Url } = require("./s3urlconfig.json");
 
 const {
     getImages,
+    getMoreImages,
     addImage,
     getSingleImage,
     addComment,
@@ -82,6 +83,22 @@ app.get("/images", (req, res) => {
         console.log("successful data query: ", data);
         res.json(data.rows);
     });
+});
+
+app.get("/images/:visibleID", (req, res) => {
+    console.log("image visibleID has been hit");
+    console.log("req.params", req.params);
+    console.log("params visible ID", req.params.visibleID);
+    let id = req.params.visibleID;
+    getMoreImages(id).then((data) => {
+        console.log("successful query show me the dataaaaa", data);
+        console.log("data.rows", data.rows);
+        res.json(data.rows);
+    });
+    // getImages().then((data) => {
+    //     console.log("successful data query: ", data);
+    //     res.json(data.rows);
+    // });
 });
 
 app.get("/singleimage/:id", (req, res) => {

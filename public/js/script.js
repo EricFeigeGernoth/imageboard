@@ -107,6 +107,7 @@
             username: "",
             file: null,
             selectedImage: "",
+            more: true,
             // this is the perfect location for us to ask if there are any images to retrieve any images from our database
         },
         mounted: function () {
@@ -183,6 +184,36 @@
                 console.log(this);
                 this.selectedImage = null;
                 // this is where you want to update data to close the modal by setting id to null
+            },
+            moreImages: function () {
+                // console.log("I am in the moreImages function");
+                // console.log("images array", this.images);
+                let visibleImages = this.images;
+                console.log(
+                    "visible Images",
+                    visibleImages[visibleImages.length - 1]
+                );
+                let visibleID = visibleImages[visibleImages.length - 1].id;
+                console.log(visibleID);
+                axios
+                    .get("/images/" + visibleID)
+                    .then((resp) => {
+                        console.log("resp from /images: ", resp.data);
+                        console.log("this", this);
+                        let newImages = resp.data;
+                        console.log("newImages", newImages);
+                        // this.images.push(resp.data);
+                        for (var i = 0; i < newImages.length; i++) {
+                            if (newImages[i].lowestId >= newImages[i].id) {
+                                this.more = false;
+                            } else {
+                                this.more = true;
+                            }
+                            this.images.push(newImages[i]);
+                        }
+                        // self.images = resp.data;
+                    })
+                    .catch((err) => console.log("err", err));
             },
         },
     });
