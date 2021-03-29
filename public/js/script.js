@@ -19,6 +19,21 @@
                 this.comments = resp.data;
             });
         },
+        watch: {
+            imageID: (imageID) => {
+                this.imageID = imageID;
+                console.log("this image ID in watch", this.imageID);
+                axios.get("/comment/" + this.imageID).then((resp) => {
+                    console.log("Get comment function worked yeah");
+                    console.log("resp mounted get comments", resp);
+                    console.log(
+                        "resp dataaaaa mounted get comments",
+                        resp.data
+                    );
+                    this.comments = resp.data;
+                });
+            },
+        },
         methods: {
             clickCommentBox: function (imageID) {
                 return console.log("inside Clickbox", imageID);
@@ -82,20 +97,47 @@
             axios
                 .get("/singleimage/" + this.id)
                 .then((resp) => {
-                    console.log("resp from /greatImages: ", resp);
-                    console.log("resp.data", resp.data[0]);
+                    // console.log("resp from /greatImages: ", resp);
+                    // console.log("resp.data", resp.data[0]);
                     this.title = resp.data[0].title;
                     this.description = resp.data[0].description;
                     this.url = resp.data[0].url;
                     this.username = resp.data[0].username;
                     this.singleID = resp.data[0].id;
                     // self.images = resp.data;
-                    console.log("single id", this.singleID);
-                    console.log(this.title);
-                    console.log(this.description);
-                    console.log(this);
+                    // console.log("single id", this.singleID);
+                    // console.log(this.title);
+                    // console.log(this.description);
+                    // console.log(this);
                 })
                 .catch((err) => console.log("err", err));
+        },
+        watch: {
+            id: (id) => {
+                console.log(id);
+                this.id = id;
+                console.log("this id in the watch modal", this.id);
+                axios
+                    .get("/singleimage/" + this.id)
+                    .then((resp) => {
+                        console.log("I am after watch");
+                        console.log("resp from /greatImages: ", resp);
+                        // console.log("resp.data", resp.data[0]);
+                        this.title = resp.data[0].title;
+                        this.description = resp.data[0].description;
+                        this.url = resp.data[0].url;
+                        this.username = resp.data[0].username;
+                        this.singleID = resp.data[0].id;
+                        // self.images = resp.data;
+                        // console.log("single id", this.singleID);
+                        // console.log(this.title);
+                        // console.log(this.description);
+                        // console.log(this);
+                    })
+                    .catch((err) => console.log("err", err));
+                // this will run whenever the id changes
+                // so whenever the id in the url changes, this function runs
+            },
         },
 
         methods: {
@@ -199,6 +241,7 @@
 
                 console.log(this);
                 this.selectedImage = null;
+                location.hash = "";
                 // this is where you want to update data to close the modal by setting id to null
             },
             moreImages: function () {

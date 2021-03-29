@@ -24,7 +24,7 @@
         <div class="originImageBoard"><div class="imageboard"> <ul class="imageList">
             <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> 
                 
-                <a href="'#'+image.id"><p class="imageTitle">{{image.title}}</p> <img class="image" :src=image.url alt="picture"><p class="imageDescription">{{image.description}}</p></li></a>
+                <a :href="'#'+image.id"><p class="imageTitle">{{image.title}}</p> <img class="image" :src=image.url alt="picture"><p class="imageDescription">{{image.description}}</p></li></a>
              
         </ul>
         <button @click="moreImages" v-if="more">More</button>
