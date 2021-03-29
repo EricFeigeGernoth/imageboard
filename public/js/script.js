@@ -7,14 +7,15 @@
                 comments: [],
                 username: "",
                 comment: "",
+                created_at: "",
             };
         },
         mounted: function () {
             console.log("is this really the imageID", this.imageID);
             axios.get("/comment/" + this.imageID).then((resp) => {
                 console.log("Get comment function worked yeah");
-                console.log("resp", resp);
-                console.log(resp.data);
+                console.log("resp mounted get comments", resp);
+                console.log("resp dataaaaa mounted get comments", resp.data);
                 this.comments = resp.data;
             });
         },
@@ -41,7 +42,17 @@
                         console.log("this", this);
                         console.log("response.data[0]", response.data[0]);
                         this.username = response.data[0].username;
+                        let username = this.username;
                         this.comment = response.data[0].comment;
+                        let comment = this.comment;
+                        this.created_at = response.data[0].created_at;
+                        // let time = this.created_at.slice(0, 10);
+                        // console.log("time", time);
+                        // response.data[0].created_at = time;
+                        // console.log(
+                        //     "response.data[0] after slice",
+                        //     response.data[0]
+                        // );
                         this.comments.unshift(response.data[0]);
                         console.log("this.comments", this.comments);
                         console.log("this.username", this.username);
@@ -106,7 +117,7 @@
             description: "",
             username: "",
             file: null,
-            selectedImage: "",
+            selectedImage: location.hash.slice(1),
             more: true,
             // this is the perfect location for us to ask if there are any images to retrieve any images from our database
         },
@@ -120,6 +131,11 @@
                     self.images = resp.data;
                 })
                 .catch((err) => console.log("err", err));
+
+            addEventListener("hashchange", () => {
+                console.log("This is the HASH CLIQUE");
+                this.selectedImage = location.hash.slice(1);
+            });
         },
 
         methods: {

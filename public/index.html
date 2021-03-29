@@ -6,21 +6,26 @@
 </head>
 <body>
    
-    
+    <img class="rainForest" src="css/sumpf.jpg" alt="rain forest">
     <!-- this container is for our Vue instance -->
     <div id="main">
+        <div class="header">
         <div class="title"><h2>Hi! This is your imageboard!</h2></div>
-        <form>
+        <div class="searchField"> <form>
             <input v-model="title" type="text" name="title" placeholder="title">
             <input v-model="description" type="text" name="description" placeholder="description">
             <input v-model="username" type="text" name="username" placeholder="username">
             <input @change='handleChange' type='file' name='file' accept='image/*'>
             <button @click.prevent="handleClick">submit</button>
-        </form>
+        </form></div></div>
+       
         
         <h2>Images:</h2>
         <div class="originImageBoard"><div class="imageboard"> <ul class="imageList">
-            <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> {{image.title}},<img class="image" :src=image.url alt="picture">,{{image.description}}</li>
+            <li class="imageContainer" v-for='image in images' :key='image.id' @click="getId(image.id)"> 
+                
+                <a href="'#'+image.id"><p class="imageTitle">{{image.title}}</p> <img class="image" :src=image.url alt="picture"><p class="imageDescription">{{image.description}}</p></li></a>
+             
         </ul>
         <button @click="moreImages" v-if="more">More</button>
     </div>
@@ -40,7 +45,7 @@
         <div class="selectedCard">
             <h2 @click='closeModal'>X</h2>
             <p>{{title}}</p>
-            <img class="image" :src=url alt="picture">
+            <img class="zoomedImage" :src=url alt="picture">
             <p>{{description}}</p>
             <comment  :imageID="id"></comment>
         </div>
@@ -63,7 +68,7 @@
         <button type="button" @click="submit(imageID)"> submit comment </button>
     
      <div class="commentSection"> <ul class="commentList">
-            <li class="commentContainer" v-for='comment in comments' :key='comment.id' > {{comment.username}},{{comment.comment}}</li>
+            <li class="commentContainer" v-for='comment in comments' :key='comment.id' > <p>{{comment.username}}</p><p>{{comment.comment}}</p> <p>{{comment.created_at}}</p>  </li>
             
         </ul></div>
     

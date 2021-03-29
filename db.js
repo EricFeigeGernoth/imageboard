@@ -21,7 +21,7 @@ module.exports.getImages = function () {
 
 module.exports.getMoreImages = function (visibleID) {
     return db.query(
-        `SELECT url, title, id, (
+        `SELECT url, title, description, id, (
   SELECT id FROM images
   ORDER BY id ASC
   LIMIT 1
@@ -49,7 +49,7 @@ module.exports.getSingleImage = function (imageID) {
 
 module.exports.addComment = function (comment, username, id) {
     return db.query(
-        `INSERT INTO comment (username, comment, images_id) VALUES ($1, $2, $3) RETURNING comment , username, images_id, id`,
+        `INSERT INTO comment (username, comment, images_id) VALUES ($1, $2, $3) RETURNING comment , username, created_at, images_id, id`,
         [username, comment, id]
     );
 };
