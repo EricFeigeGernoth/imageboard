@@ -7,7 +7,7 @@
                 comments: [],
                 username: "",
                 comment: "",
-                created_at: "",
+                // created_at: "",
             };
         },
         mounted: function () {
@@ -16,11 +16,18 @@
                 console.log("Get comment function worked yeah");
                 console.log("resp mounted get comments", resp);
                 console.log("resp dataaaaa mounted get comments", resp.data);
+                for (var i = 0; i < resp.data.length; i++) {
+                    console.log("data.length mounted", resp.data.length);
+                    let time = resp.data[i].created_at.slice(0, 10);
+                    resp.data[i].created_at = time;
+                }
+                console.log("resp.data mounted 701238470123074", resp.data);
+
                 this.comments = resp.data;
             });
         },
         watch: {
-            imageID: (imageID) => {
+            imageID: function (imageID) {
                 this.imageID = imageID;
                 console.log("this image ID in watch", this.imageID);
                 axios.get("/comment/" + this.imageID).then((resp) => {
@@ -30,6 +37,11 @@
                         "resp dataaaaa mounted get comments",
                         resp.data
                     );
+                    for (var i = 0; i < resp.data.length; i++) {
+                        console.log("data.length mounted", resp.data.length);
+                        let time = resp.data[i].created_at.slice(0, 10);
+                        resp.data[i].created_at = time;
+                    }
                     this.comments = resp.data;
                 });
             },
@@ -39,9 +51,9 @@
                 return console.log("inside Clickbox", imageID);
             },
             submit: function (imageID) {
-                console.log(this);
-                console.log(this.comment);
-                console.log(this.username);
+                // console.log(this);
+                // console.log(this.comment);
+                // console.log(this.username);
 
                 let comment = {
                     comment: this.comment,
@@ -60,10 +72,9 @@
                         let username = this.username;
                         this.comment = response.data[0].comment;
                         let comment = this.comment;
-                        this.created_at = response.data[0].created_at;
-                        // let time = this.created_at.slice(0, 10);
-                        // console.log("time", time);
-                        // response.data[0].created_at = time;
+
+                        let time = response.data[0].created_at.slice(0, 10);
+                        response.data[0].created_at = time;
                         // console.log(
                         //     "response.data[0] after slice",
                         //     response.data[0]
@@ -113,26 +124,30 @@
                 .catch((err) => console.log("err", err));
         },
         watch: {
-            id: (id) => {
+            id: function (id) {
                 console.log(id);
+                console.log("this beginning watch", this);
                 this.id = id;
                 console.log("this id in the watch modal", this.id);
+                var self = this;
                 axios
                     .get("/singleimage/" + this.id)
                     .then((resp) => {
+                        console.log("this self watch", self);
                         console.log("I am after watch");
                         console.log("resp from /greatImages: ", resp);
                         // console.log("resp.data", resp.data[0]);
+                        console.log("self", self);
                         this.title = resp.data[0].title;
                         this.description = resp.data[0].description;
                         this.url = resp.data[0].url;
                         this.username = resp.data[0].username;
                         this.singleID = resp.data[0].id;
                         // self.images = resp.data;
-                        // console.log("single id", this.singleID);
-                        // console.log(this.title);
-                        // console.log(this.description);
-                        // console.log(this);
+                        console.log("single id", this.singleID);
+                        console.log("this.title", this.title);
+                        console.log(this.description);
+                        console.log("this watch", this);
                     })
                     .catch((err) => console.log("err", err));
                 // this will run whenever the id changes
