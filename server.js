@@ -141,7 +141,7 @@ app.get("/comment/:imageID", (req, res) => {
 
 app.post("/comment/:imageId", (req, res) => {
     console.log("req.params", req.params);
-    console.log(req);
+    // console.log(req);
     console.log("comment req.body", req.body);
     let comment = req.body.comment;
     let username = req.body.username;

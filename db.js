@@ -47,7 +47,7 @@ module.exports.getSingleImage = function (imageID) {
     );
 };
 
-module.exports.addComment = function (comment, username, id) {
+module.exports.addComment = function (username, comment, id) {
     return db.query(
         `INSERT INTO comment (username, comment, images_id) VALUES ($1, $2, $3) RETURNING comment , username, created_at, images_id, id`,
         [username, comment, id]
