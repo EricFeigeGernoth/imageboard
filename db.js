@@ -42,7 +42,16 @@ module.exports.addImage = function (title, description, username, url) {
 
 module.exports.getSingleImage = function (imageID) {
     return db.query(
-        `SELECT url, title, description, username, id FROM images WHERE id=$1 ;`,
+        `SELECT url, title, description, username, id, 
+        (SELECT id FROM images 
+        WHERE id < $1
+        ORDER BY id DESC
+        LIMIT 1) AS "previousId",
+        (SELECT id FROM images 
+        WHERE id > $1
+        ORDER BY id ASC
+        LIMIT 1) AS "nextId"  
+        FROM images WHERE id=$1 ;`,
         [imageID]
     );
 };

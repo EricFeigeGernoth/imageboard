@@ -31,9 +31,9 @@
                 <ul class="imageList">
                 <li class="imageContainer" v-for='image in images' :key='image.id' > 
                 
-                    <a :href="'#'+image.id" style="text-decoration: none;">
+                    <a :href="'#'+image.id" style="text-decoration: none;" @click="getId(image.id)">
                      <p class="imageTitle" >{{image.title}}</p> 
-                     <img @click="getId(image.id)" class="image" :src=image.url alt="picture">
+                     <img  class="image" :src=image.url alt="picture">
                      <p class="imageDescription">{{image.description}}</p>
                     </a>
                 </li>
@@ -63,7 +63,15 @@
                <h2 @click='closeModal'>X</h2>
             </div>
         </div>
-           
+            <div class="further">
+               <div class="previousPage">
+                   <p class="furtherButtons" @click="previousPage" v-if="previous">Previous</p>
+                </div> 
+               <div class="nextPage">
+                   <p class="furtherButtons" @click="nextPage" v-if="next">Next</p>
+                </div> 
+           </div>
+        
             <p class="selectedTitle">{{title}}</p>
             <img class="zoomedImage" :src=url alt="picture">
             <p class="selectedDescription">{{description}}</p>

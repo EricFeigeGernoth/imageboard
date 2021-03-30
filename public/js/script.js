@@ -33,15 +33,6 @@
                 axios
                     .get("/comment/" + this.imageID)
                     .then((resp) => {
-                        // if (resp.data == []) {
-                        //     this.$emit("close");
-                        // }
-                        // console.log("Get comment function worked yeah");
-                        // console.log("resp mounted get comments", resp);
-                        // console.log(
-                        //     "resp dataaaaa mounted get comments",
-                        //     resp.data
-                        // );
                         for (var i = 0; i < resp.data.length; i++) {
                             console.log(
                                 "data.length mounted",
@@ -115,6 +106,10 @@
                 url: this.url,
                 username: this.username,
                 singleID: this.singleID,
+                previousId: "",
+                nextId: "",
+                previous: true,
+                next: true,
             };
         },
         mounted: function (id) {
@@ -123,18 +118,26 @@
             axios
                 .get("/singleimage/" + this.id)
                 .then((resp) => {
-                    // console.log("resp from /greatImages: ", resp);
-                    // console.log("resp.data", resp.data[0]);
+                    console.log("resp from /greatImages: ", resp);
                     this.title = resp.data[0].title;
                     this.description = resp.data[0].description;
                     this.url = resp.data[0].url;
                     this.username = resp.data[0].username;
                     this.singleID = resp.data[0].id;
-                    // self.images = resp.data;
-                    // console.log("single id", this.singleID);
-                    // console.log(this.title);
-                    // console.log(this.description);
-                    // console.log(this);
+                    // this.previousId = resp.data[0].previousId;
+                    // this.nextId = resp.data[0].nextId;
+                    if (resp.data[0].previousId == null) {
+                        this.previous = false;
+                    } else {
+                        this.previous = true;
+                        this.previousId = resp.data[0].previousId;
+                    }
+                    if (resp.data[0].nextId == null) {
+                        this.next = false;
+                    } else {
+                        this.next = true;
+                        this.nextId = resp.data[0].nextId;
+                    }
                 })
                 .catch((err) => console.log("err", err));
         },
@@ -148,24 +151,27 @@
                 axios
                     .get("/singleimage/" + this.id)
                     .then((resp) => {
-                        // if (resp.data[0] == []) {
-                        //     this.$emit("close");
-                        // }
-                        // console.log("this self watch", self);
-                        // console.log("I am after watch");
-                        // console.log("resp from /greatImages: ", resp);
-                        // console.log("resp.data", resp.data[0]);
-                        console.log("self", self);
+                        console.log("resp from /greatImages watcher: ", resp);
+
                         this.title = resp.data[0].title;
                         this.description = resp.data[0].description;
                         this.url = resp.data[0].url;
                         this.username = resp.data[0].username;
                         this.singleID = resp.data[0].id;
-                        // self.images = resp.data;
-                        // console.log("single id", this.singleID);
-                        // console.log("this.title", this.title);
-                        // console.log(this.description);
-                        // console.log("this watch", this);
+                        // this.previousId = resp.data[0].previousId;
+                        // this.nextId = resp.data[0].nextId;
+                        if (resp.data[0].previousId == null) {
+                            this.previous = false;
+                        } else {
+                            this.previous = true;
+                            this.previousId = resp.data[0].previousId;
+                        }
+                        if (resp.data[0].nextId == null) {
+                            this.next = false;
+                        } else {
+                            this.next = true;
+                            this.nextId = resp.data[0].nextId;
+                        }
                     })
                     .catch((err) => {
                         console.log("err", err);
@@ -181,6 +187,79 @@
                 console.log("closeModal is running!");
                 // console.log("about to emit an event from the component!!");
                 this.$emit("close");
+            },
+            previousPage: function (previousId) {
+                axios
+                    .get("/singleimage/" + this.previousId)
+                    .then((resp) => {
+                        console.log("resp from /greatImages watcher: ", resp);
+                        // console.log("resp.data", resp.data[0]);
+                        // console.log("self", self);
+                        this.title = resp.data[0].title;
+                        this.description = resp.data[0].description;
+                        this.url = resp.data[0].url;
+                        this.username = resp.data[0].username;
+                        this.singleID = resp.data[0].id;
+
+                        // this.nextId = resp.data[0].nextId;
+                        console.log("current ID", resp.data[0].id);
+                        console.log("location.hash", location.hash);
+                        location.hash = `#+${resp.data[0].id}`;
+                        console.log("location.hash", location.hash);
+                        if (resp.data[0].previousId == null) {
+                            this.previous = false;
+                        } else {
+                            this.previous = true;
+                            this.previousId = resp.data[0].previousId;
+                        }
+                        if (resp.data[0].nextId == null) {
+                            this.next = false;
+                        } else {
+                            this.next = true;
+                            this.nextId = resp.data[0].nextId;
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("err", err);
+                        this.$emit("close");
+                    });
+            },
+            nextPage: function (nextId) {
+                axios
+                    .get("/singleimage/" + this.nextId)
+                    .then((resp) => {
+                        console.log("resp from /greatImages watcher: ", resp);
+
+                        this.title = resp.data[0].title;
+                        this.description = resp.data[0].description;
+                        this.url = resp.data[0].url;
+                        this.username = resp.data[0].username;
+                        this.singleID = resp.data[0].id;
+                        // this.previousId = resp.data[0].previousId;
+
+                        console.log("current ID", resp.data[0].id);
+                        console.log("next ID", resp.data[0].nextId);
+                        // console.log("location.hash", location.hash);
+                        location.hash = `#+${resp.data[0].id}`;
+                        console.log("location.hash", location.hash);
+                        if (resp.data[0].nextId == null) {
+                            console.log("I am in the if clause hahah");
+                            this.next = false;
+                        } else {
+                            this.next = true;
+                            this.nextId = resp.data[0].nextId;
+                        }
+                        if (resp.data[0].previousId == null) {
+                            this.previous = false;
+                        } else {
+                            this.previous = true;
+                            this.previousId = resp.data[0].previousId;
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("err", err);
+                        this.$emit("close");
+                    });
             },
         },
     });
